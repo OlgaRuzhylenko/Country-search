@@ -1,11 +1,14 @@
-import { Container, CountryList, Heading, SearchForm, Section } from 'components';
+import { Container, CountryList, SearchForm, Section } from 'components';
 import { useEffect, useState } from 'react';
-import { fetchByRegion } from '../service/countryApi';
+import { fetchByRegion } from '../../service/countryApi';
 import { useSearchParams } from 'react-router-dom';
+import styles from './SearchCountry.module.css';
 
 export const SearchCountry = () => {
   const [region, setRegion] = useSearchParams();
   const [chosenCoutries, setChosenCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleSearch(value) {
     setRegion({
@@ -14,17 +17,19 @@ export const SearchCountry = () => {
   }
 
   useEffect(() => {
-    const searchParams = region.get('query')
+    const searchParams = region.get('query');
     if (!searchParams) {
       return;
     }
     async function getCoutriesByRegions() {
       try {
+        setLoading(true);
         const data = await fetchByRegion(searchParams);
-        console.log(data);
         setChosenCountries(data);
       } catch (error) {
+        setError(true);
       } finally {
+        setLoading(false);
       }
     }
     getCoutriesByRegions();
@@ -34,7 +39,9 @@ export const SearchCountry = () => {
     <Section>
       <Container>
         <SearchForm onSearch={handleSearch} />
-        <CountryList countries={chosenCoutries}/>
+        {error && <p className={styles.error}>Oops, something's wrong</p>}
+        {loading && <p className={styles.loading}>Loading countries...</p>}
+        <CountryList countries={chosenCoutries} />
       </Container>
     </Section>
   );

@@ -37,9 +37,9 @@ export const Header = () => {
           </nav>
         </div>
       </header>
-     <Suspense fallback={null}>
-     <Outlet/>
-     </Suspense>
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

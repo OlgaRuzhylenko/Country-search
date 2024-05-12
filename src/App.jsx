@@ -1,7 +1,7 @@
-import { Header, Heading } from 'components';
-import { Country } from 'pages/Country';
-import { Home } from 'pages/Home';
-import { SearchCountry } from 'pages/SearchCountry';
+import { Header } from 'components';
+import { Country } from 'pages/Country/Country';
+import { Home } from 'pages/Home/Home';
+import { SearchCountry } from 'pages/SearchCountry/SearchCountry';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const App = () => {
@@ -11,7 +11,7 @@ export const App = () => {
         <Route index element={<Home />} />
         <Route path="/country" element={<SearchCountry />} />
         <Route path="/country/:countryId" element={<Country />} />
-        <Route path="*" element={<Navigate to='/'/>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>
   );

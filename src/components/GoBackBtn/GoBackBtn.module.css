@@ -13,3 +13,11 @@
 .link:focus {
   background-color: var(--color-imageBackground);
 }
+.btn {
+  color: var(--color-white);
+  background-color: var(--color-accent);
+
+  padding: 6px 12px;
+  border-radius: 4px;
+
+}
